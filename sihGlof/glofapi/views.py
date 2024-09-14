@@ -32,6 +32,4 @@ def get_other_data(request:HttpRequest) -> Response:
     })
 
 def home(request:HttpRequest) -> HttpResponse:
-    return HttpResponse({
-        '<h1>HELLO</h1>'
-    })
+    return HttpResponse('<h1>HELLO</h1>')
