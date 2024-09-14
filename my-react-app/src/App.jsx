@@ -1,9 +1,10 @@
-import React, { useState,useRef, useEffect } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import './App.css'; // Optional: To include custom styles
+import React, { useState, useRef, useEffect } from "react";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+import "./App.css"; // Optional: To include custom styles
 
-mapboxgl.accessToken = 'pk.eyJ1IjoicHJhdGhhbS1jaGF3ZGhyeSIsImEiOiJjbTBma25zODEwOXBpMmpyMWpjYm1yYXN0In0.hzlH2uElEdFFnhzRlH3sIA';
+mapboxgl.accessToken =
+  "pk.eyJ1IjoicHJhdGhhbS1jaGF3ZGhyeSIsImEiOiJjbTBma25zODEwOXBpMmpyMWpjYm1yYXN0In0.hzlH2uElEdFFnhzRlH3sIA";
 
 const Map = () => {
   const mapContainerRef = useRef(null);
@@ -40,13 +41,13 @@ const Map = () => {
       style: 'mapbox://styles/mapbox/streets-v12',
       projection: 'globe',
       zoom: 1,
-      center: [30, 15]
+      center: [30, 15],
     });
 
     map.addControl(new mapboxgl.NavigationControl());
     map.scrollZoom.disable();
-    
-    map.on('style.load', () => {
+
+    map.on("style.load", () => {
       map.setFog({});
       map.addSource('places', {
         // This GeoJSON contains features that include an "icon"
@@ -203,33 +204,32 @@ const Map = () => {
 
     const worldViewOnMapLoad = 'IN';
 
-    map.on('load', () => {
-        filterLayers(worldViewOnMapLoad);
+    map.on("load", () => {
+      filterLayers(worldViewOnMapLoad);
     });
 
     function filterLayers(worldview) {
-        map.setFilter('admin-0-boundary-disputed', [
-            'all',
-            ['==', ['get', 'disputed'], 'true'],
-            ['==', ['get', 'admin_level'], 0],
-            ['==', ['get', 'maritime'], 'false'],
-            ['match', ['get', 'worldview'], ['all', worldview], true, false]
-        ]);
-        map.setFilter('admin-0-boundary', [
-            'all',
-            ['==', ['get', 'admin_level'], 0],
-            ['==', ['get', 'disputed'], 'false'],
-            ['==', ['get', 'maritime'], 'false'],
-            ['match', ['get', 'worldview'], ['all', worldview], true, false]
-        ]);
-        map.setFilter('admin-0-boundary-bg', [
-            'all',
-            ['==', ['get', 'admin_level'], 0],
-            ['==', ['get', 'maritime'], 'false'],
-            ['match', ['get', 'worldview'], ['all', worldview], true, false]
-        ]);
+      map.setFilter("admin-0-boundary-disputed", [
+        "all",
+        ["==", ["get", "disputed"], "true"],
+        ["==", ["get", "admin_level"], 0],
+        ["==", ["get", "maritime"], "false"],
+        ["match", ["get", "worldview"], ["all", worldview], true, false],
+      ]);
+      map.setFilter("admin-0-boundary", [
+        "all",
+        ["==", ["get", "admin_level"], 0],
+        ["==", ["get", "disputed"], "false"],
+        ["==", ["get", "maritime"], "false"],
+        ["match", ["get", "worldview"], ["all", worldview], true, false],
+      ]);
+      map.setFilter("admin-0-boundary-bg", [
+        "all",
+        ["==", ["get", "admin_level"], 0],
+        ["==", ["get", "maritime"], "false"],
+        ["match", ["get", "worldview"], ["all", worldview], true, false],
+      ]);
     }
-
 
     // mapboxgl.addClaimedBoundaries(map, 'IN');
 
@@ -250,35 +250,35 @@ const Map = () => {
       }
     };
 
-    map.on('mousedown', () => {
+    map.on("mousedown", () => {
       userInteracting = true;
     });
 
-    map.on('dragstart', () => {
+    map.on("dragstart", () => {
       userInteracting = true;
     });
 
-    map.on('moveend', () => {
+    map.on("moveend", () => {
       spinGlobe();
     });
 
     spinGlobe();
 
-    document.getElementById("switch").onclick = function() {
-      mapboxgl.addClaimedBoundaries(map, 'IN'); // Replace with your function
+    document.getElementById("switch").onclick = function () {
+      mapboxgl.addClaimedBoundaries(map, "IN"); // Replace with your function
     };
 
     return () => map.remove(); // Clean up on unmount
   }, []);
 
-  return ( 
-    loading ? (
-      <>
-        <button id="switch" className="button">Add claimed boundaries of India</button>
-        <div ref={mapContainerRef} className="map-container" />
-      </>
-    ) : null
-  );
+  return loading ? (
+    <>
+      <button id="switch" className="button">
+        Add claimed boundaries of India
+      </button>
+      <div ref={mapContainerRef} className="map-container" />
+    </>
+  ) : null;
 };
 
 export default Map;
