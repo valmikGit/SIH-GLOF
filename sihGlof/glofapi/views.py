@@ -12,21 +12,22 @@ def get_other_data(request:HttpRequest) -> Response:
     Query parameters: latitude and longitude
     """
     if request.method == 'POST':
-        latitude = request.data.get('latitude', None)
-        longitude = request.data.get('longitude', None)
-        if latitude is None or longitude is None:
-            return Response({
-                'message': f'Latitude and longitude cannot be None.'
-            })
-        glofs = GLOFattributes.objects.filter(latitude=str(latitude).strip(), longitude=str(longitude).strip())
-        if glofs.exists():
-            serializer = GLOFSerializer(glofs, many=True)
-            return Response({
-                'data': serializer.data
-            })
-        return Response({
-            'message': f'No data available for latitude = {latitude} and longitude = {longitude}'
-        })
+        # latitude = request.data.get('latitude', None)
+        # longitude = request.data.get('longitude', None)
+        # if latitude is None or longitude is None:
+        #     return Response({
+        #         'message': f'Latitude and longitude cannot be None.'
+        #     })
+        glofs = GLOFattributes.objects.all()
+        # if glofs.exists():
+        #     serializer = GLOFSerializer(glofs, many=True)
+        #     return Response({
+        #         'data': serializer.data
+        #     })
+        # return Response({
+        #     'message': f'No data available for latitude = {latitude} and longitude = {longitude}'
+        # })
+        serializer = GLOFSerializer(glofs, many=True)
     return Response({
         'message': f'Only POST request is allowed but got {request.method}.'
     })
