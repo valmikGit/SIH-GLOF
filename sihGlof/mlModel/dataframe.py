@@ -30,8 +30,9 @@ def drop_columns(file_name, column_names):
     gdf.drop(columns = column_names, inplace=True)
     print(gdf.columns)
     print(gdf.head())
-    for i in list(gdf.columns):
-        print(i, list(set(gdf[i]))[:5])
+    return gdf
+    # for i in list(gdf.columns):
+    #     print(i, list(set(gdf[i]))[:5])
     
 def csv_dataframe(file_name):
     # Read CSV and print column details
@@ -48,14 +49,14 @@ file_names = [
 ]
 
 columns = ['wgms_id', 'local_id', 'subm_id', 'release_dt', 'proc_desc', 'rc_id', 'chief_affl', 'analysts', 'rec_status', 'glac_stat', 'gone_date', 'gone_dt_e', 'submitters']
-drop_columns('NSIDC-0272_glims_db_south_20240603_v01.0/glims_download_66118/glims_polygons.shp', columns)
+gdf = drop_columns('NSIDC-0272_glims_db_south_20240603_v01.0/glims_download_66118/glims_polygons.shp', columns)
 # Create a new plot with Matplotlib
-fig, ax = plt.subplots(figsize=(10, 10))
+# fig, ax = plt.subplots(figsize=(10, 10))
 
-# Plot all shapefiles on the same axis
-for i in file_names:
-    ax = shapefile_dataframe(i, ax=ax)
+# # Plot all shapefiles on the same axis
+# for i in file_names:
+#     ax = shapefile_dataframe(i, ax=ax)
 
-plt.savefig("combined.png")
-# Show the combined plot
-plt.show()
+# plt.savefig("combined.png")
+# # Show the combined plot
+# plt.show()
