@@ -6,14 +6,14 @@ from glofapi.models import GLOFattributes
 from glofapi.serializers import GLOFSerializer
 
 # Create your views here.
-@api_view(['GET'])
+@api_view(['POST'])
 def get_other_data(request:HttpRequest) -> Response:
     """
     Query parameters: latitude and longitude
     """
-    if request.method == 'GET':
-        latitude = request.GET.get('latitude', None)
-        longitude = request.GET.get('longitude', None)
+    if request.method == 'POST':
+        latitude = request.POST.get('latitude', None)
+        longitude = request.POST.get('longitude', None)
         if latitude is None or longitude is None:
             return Response({
                 'message': f'Latitude and longitude cannot be None.'
@@ -28,7 +28,7 @@ def get_other_data(request:HttpRequest) -> Response:
             'message': f'No data available for latitude = {latitude} and longitude = {longitude}'
         })
     return Response({
-        'message': f'Only GET request is allowed but got {request.method}.'
+        'message': f'Only POST request is allowed but got {request.method}.'
     })
 
 def home(request:HttpRequest) -> HttpResponse:
