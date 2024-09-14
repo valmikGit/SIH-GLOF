@@ -8,20 +8,56 @@ mapboxgl.accessToken =
 
 const Map = () => {
   const mapContainerRef = useRef(null);
-  const [loading , setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [latitude, setLatitude] = useState(30.316);
+  const [longitude, setLongitude] = useState(78.032);
+
+  const [glofs, setGlofs] = useState({
+    type: "geojson",
+    data: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: {
+            description:
+              '<strong>Make it Mount Pleasant</strong><p><a href="http://www.mtpleasantdc.com/makeitmtpleasant" target="_blank" title="Opens in a new window">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>',
+            icon: "theatre",
+          },
+          geometry: {
+            type: "Point",
+            coordinates: [-77.038659, 38.931567],
+          },
+        },
+      ],
+    },
+  });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/auth/get-data/", {
-          method: "GET",
+        const response = await fetch("http://127.0.0.1:8000/get-data/", {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
         });
         const data = await response.json();
         console.log(data);
-  
+
+        const updatedFeatures = data.map((feature) => {
+          console.log(feature);
+          return feature;
+        });
+
+        setGlofs((prevGlofs) => ({
+          ...prevGlofs,
+          data: {
+            ...prevGlofs.data,
+            features: updatedFeatures,
+          },
+        }));
+
         if (response.ok) {
           setLoading(true);
           console.log("Data received:", data);
@@ -32,243 +68,159 @@ const Map = () => {
         console.error("Error fetching data:", error);
       }
     };
+
     fetchData();
-  }, []); 
+  }, []);
 
   useEffect(() => {
-    const map = new mapboxgl.Map({
-      container: mapContainerRef.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
-      projection: 'globe',
-      zoom: 1,
-      center: [30, 15],
-    });
-
-    map.addControl(new mapboxgl.NavigationControl());
-    map.scrollZoom.disable();
-
-    map.on("style.load", () => {
-      map.setFog({});
-      map.addSource('places', {
-        // This GeoJSON contains features that include an "icon"
-        // property. The value of the "icon" property corresponds
-        // to an image in the Mapbox Streets style's sprite.
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: [
-            {
-              type: 'Feature',
-              properties: {
-                description:
-                  '<strong>Make it Mount Pleasant</strong><p><a href="http://www.mtpleasantdc.com/makeitmtpleasant" target="_blank" title="Opens in a new window">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>',
-                icon: 'theatre'
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [-77.038659, 38.931567]
-              }
-            },
-            {
-              type: 'Feature',
-              properties: {
-                description:
-                  '<strong>Mad Men Season Five Finale Watch Party</strong><p>Head to Lounge 201 (201 Massachusetts Avenue NE) Sunday for a <a href="http://madmens5finale.eventbrite.com/" target="_blank" title="Opens in a new window">Mad Men Season Five Finale Watch Party</a>, complete with 60s costume contest, Mad Men trivia, and retro food and drink. 8:00-11:00 p.m. $10 general admission, $20 admission and two hour open bar.</p>',
-                icon: 'theatre'
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [-77.003168, 38.894651]
-              }
-            },
-            {
-              type: 'Feature',
-              properties: {
-                description:
-                  '<strong>Big Backyard Beach Bash and Wine Fest</strong><p>EatBar (2761 Washington Boulevard Arlington VA) is throwing a <a href="http://tallulaeatbar.ticketleap.com/2012beachblanket/" target="_blank" title="Opens in a new window">Big Backyard Beach Bash and Wine Fest</a> on Saturday, serving up conch fritters, fish tacos and crab sliders, and Red Apron hot dogs. 12:00-3:00 p.m. $25.grill hot dogs.</p>',
-                icon: 'bar'
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [-77.090372, 38.881189]
-              }
-            },
-            {
-              type: 'Feature',
-              properties: {
-                description:
-                  '<strong>Ballston Arts & Crafts Market</strong><p>The <a href="http://ballstonarts-craftsmarket.blogspot.com/" target="_blank" title="Opens in a new window">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p>',
-                icon: 'art-gallery'
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [-77.111561, 38.882342]
-              }
-            },
-            {
-              type: 'Feature',
-              properties: {
-                description:
-                  '<strong>Seersucker Bike Ride and Social</strong><p>Feeling dandy? Get fancy, grab your bike, and take part in this year\'s <a href="http://dandiesandquaintrelles.com/2012/04/the-seersucker-social-is-set-for-june-9th-save-the-date-and-start-planning-your-look/" target="_blank" title="Opens in a new window">Seersucker Social</a> bike ride from Dandies and Quaintrelles. After the ride enjoy a lawn party at Hillwood with jazz, cocktails, paper hat-making, and more. 11:00-7:00 p.m.</p>',
-                icon: 'bicycle'
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [-77.052477, 38.943951]
-              }
-            },
-            {
-              type: 'Feature',
-              properties: {
-                description:
-                  '<strong>Capital Pride Parade</strong><p>The annual <a href="http://www.capitalpride.org/parade" target="_blank" title="Opens in a new window">Capital Pride Parade</a> makes its way through Dupont this Saturday. 4:30 p.m. Free.</p>',
-                icon: 'rocket'
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [-77.043444, 38.909664]
-              }
-            },
-            {
-              type: 'Feature',
-              properties: {
-                description:
-                  '<strong>Muhsinah</strong><p>Jazz-influenced hip hop artist <a href="http://www.muhsinah.com" target="_blank" title="Opens in a new window">Muhsinah</a> plays the <a href="http://www.blackcatdc.com">Black Cat</a> (1811 14th Street NW) tonight with <a href="http://www.exitclov.com" target="_blank" title="Opens in a new window">Exit Clov</a> and <a href="http://godsilla.bandcamp.com" target="_blank" title="Opens in a new window">Gods’illa</a>. 9:00 p.m. $12.</p>',
-                icon: 'music'
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [-77.031706, 38.914581]
-              }
-            },
-            {
-              type: 'Feature',
-              properties: {
-                description:
-                  '<strong>A Little Night Music</strong><p>The Arlington Players\' production of Stephen Sondheim\'s  <a href="http://www.thearlingtonplayers.org/drupal-6.20/node/4661/show" target="_blank" title="Opens in a new window"><em>A Little Night Music</em></a> comes to the Kogod Cradle at The Mead Center for American Theater (1101 6th Street SW) this weekend and next. 8:00 p.m.</p>',
-                icon: 'music'
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [-77.020945, 38.878241]
-              }
-            },
-            {
-              type: 'Feature',
-              properties: {
-                description:
-                  '<strong>Truckeroo</strong><p><a href="http://www.truckeroodc.com/www/" target="_blank">Truckeroo</a> brings dozens of food trucks, live music, and games to half and M Street SE (across from Navy Yard Metro Station) today from 11:00 a.m. to 11:00 p.m.</p>',
-                icon: 'music'
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [-77.007481, 38.876516]
-              }
-            }
-          ]
-        }
+    if (mapContainerRef.current) {
+      const map = new mapboxgl.Map({
+        container: mapContainerRef.current,
+        style: "mapbox://styles/mapbox/streets-v12",
+        projection: "globe",
+        zoom: 1,
+        center: [30, 15],
       });
 
-      map.addLayer({
-        id: 'places',
-        type: 'symbol',
-        source: 'places',
-        layout: {
-          'icon-image': ['get', 'icon'],
-          'icon-allow-overlap': true
-        }
+      map.addControl(new mapboxgl.NavigationControl());
+      map.scrollZoom.disable();
+
+      map.on("style.load", () => {
+        map.setFog({});
+        map.addSource("places", glofs);
+
+        map.addLayer({
+          id: "places",
+          type: "symbol",
+          source: "places",
+          layout: {
+            "icon-image": ["get", "icon"],
+            "icon-allow-overlap": true,
+          },
+        });
+
+        map.on("click", "places", (e) => {
+          const coordinates = e.features[0].geometry.coordinates.slice();
+          const description = e.features[0].properties.description;
+
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+        });
+
+        map.on("mouseenter", "places", () => {
+          map.getCanvas().style.cursor = "pointer";
+        });
+
+        map.on("mouseleave", "places", () => {
+          map.getCanvas().style.cursor = "pointer";
+        });
+
+        map.on("hover", "places", (e) => {
+          map.getCanvas().style.cursor = "pointer";
+        });
       });
 
-      map.on('click', 'places', (e) => {
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const description = e.features[0].properties.description;
+      const worldViewOnMapLoad = "IN";
 
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-
-        new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(description)
-          .addTo(map);
+      map.on("load", () => {
+        filterLayers(worldViewOnMapLoad);
       });
 
-      map.on('mouseenter', 'places', () => {
-        map.getCanvas().style.cursor = 'pointer';
-      });
-
-      map.on('mouseleave', 'places', () => {
-        map.getCanvas().style.cursor = '';
-      });
-    });
-
-    const worldViewOnMapLoad = 'IN';
-
-    map.on("load", () => {
-      filterLayers(worldViewOnMapLoad);
-    });
-
-    function filterLayers(worldview) {
-      map.setFilter("admin-0-boundary-disputed", [
-        "all",
-        ["==", ["get", "disputed"], "true"],
-        ["==", ["get", "admin_level"], 0],
-        ["==", ["get", "maritime"], "false"],
-        ["match", ["get", "worldview"], ["all", worldview], true, false],
-      ]);
-      map.setFilter("admin-0-boundary", [
-        "all",
-        ["==", ["get", "admin_level"], 0],
-        ["==", ["get", "disputed"], "false"],
-        ["==", ["get", "maritime"], "false"],
-        ["match", ["get", "worldview"], ["all", worldview], true, false],
-      ]);
-      map.setFilter("admin-0-boundary-bg", [
-        "all",
-        ["==", ["get", "admin_level"], 0],
-        ["==", ["get", "maritime"], "false"],
-        ["match", ["get", "worldview"], ["all", worldview], true, false],
-      ]);
-    }
-
-    // mapboxgl.addClaimedBoundaries(map, 'IN');
-
-    let userInteracting = false;
-    const spinEnabled = true;
-
-    const spinGlobe = () => {
-      const zoom = map.getZoom();
-      if (spinEnabled && !userInteracting && zoom < 5) {
-        let distancePerSecond = 360 / 240;
-        if (zoom > 3) {
-          const zoomDif = (5 - zoom) / (5 - 3);
-          distancePerSecond *= zoomDif;
-        }
-        const center = map.getCenter();
-        center.lng -= distancePerSecond;
-        map.easeTo({ center, duration: 1000, easing: (n) => n });
+      function filterLayers(worldview) {
+        map.setFilter("admin-0-boundary-disputed", [
+          "all",
+          ["==", ["get", "disputed"], "true"],
+          ["==", ["get", "admin_level"], 0],
+          ["==", ["get", "maritime"], "false"],
+          ["match", ["get", "worldview"], ["all", worldview], true, false],
+        ]);
+        map.setFilter("admin-0-boundary", [
+          "all",
+          ["==", ["get", "admin_level"], 0],
+          ["==", ["get", "disputed"], "false"],
+          ["==", ["get", "maritime"], "false"],
+          ["match", ["get", "worldview"], ["all", worldview], true, false],
+        ]);
+        map.setFilter("admin-0-boundary-bg", [
+          "all",
+          ["==", ["get", "admin_level"], 0],
+          ["==", ["get", "maritime"], "false"],
+          ["match", ["get", "worldview"], ["all", worldview], true, false],
+        ]);
       }
-    };
 
-    map.on("mousedown", () => {
-      userInteracting = true;
-    });
+      // mapboxgl.addClaimedBoundaries(map, 'IN');
 
-    map.on("dragstart", () => {
-      userInteracting = true;
-    });
+      let userInteracting = false;
+      const spinEnabled = true;
 
-    map.on("moveend", () => {
+      const spinGlobe = () => {
+        const zoom = map.getZoom();
+        if (spinEnabled && !userInteracting && zoom < 5) {
+          let distancePerSecond = 360 / 240;
+          if (zoom > 3) {
+            const zoomDif = (5 - zoom) / (5 - 3);
+            distancePerSecond *= zoomDif;
+          }
+          const center = map.getCenter();
+          center.lng -= distancePerSecond;
+          map.easeTo({ center, duration: 1000, easing: (n) => n });
+        }
+      };
+
+      map.on("mousedown", () => {
+        userInteracting = true;
+      });
+
+      map.on("dragstart", () => {
+        userInteracting = true;
+      });
+
+      map.on("moveend", () => {
+        spinGlobe();
+      });
+
+      map.on("click", function (e) {
+        setLatitude(e.lngLat.lat);
+        setLongitude(e.lngLat.lng);
+        console.log(e.lngLat.lng, e.lngLat.lat);
+
+        setGlofs({
+          ...glofs,
+          data: {
+            ...glofs.data,
+            features: [
+              ...glofs.data.features,
+              {
+                type: "Feature",
+                properties: {
+                  description: "<strong>New Point</strong>",
+                  icon: "theatre",
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [e.lngLat.lng, e.lngLat.lat],
+                },
+              },
+            ],
+          },
+        });
+      });
+
       spinGlobe();
-    });
 
-    spinGlobe();
+      document.getElementById("switch").onclick = function () {
+        mapboxgl.addClaimedBoundaries(map, "IN"); // Replace with your function
+      };
 
-    document.getElementById("switch").onclick = function () {
-      mapboxgl.addClaimedBoundaries(map, "IN"); // Replace with your function
-    };
-
-    return () => map.remove(); // Clean up on unmount
+      return () => map.remove(); // Clean up on unmount
+    }
   }, []);
 
   return loading ? (
