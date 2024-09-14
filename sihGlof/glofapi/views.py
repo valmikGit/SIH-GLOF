@@ -28,6 +28,9 @@ def get_other_data(request:HttpRequest) -> Response:
         #     'message': f'No data available for latitude = {latitude} and longitude = {longitude}'
         # })
         serializer = GLOFSerializer(glofs, many=True)
+        return Response({
+            'data': serializer.data
+        })
     else:
         return Response({
             'message': f'Only POST request is allowed but got {request.method}.'
