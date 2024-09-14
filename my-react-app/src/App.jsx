@@ -10,30 +10,30 @@ const Map = () => {
   const mapContainerRef = useRef(null);
   const [loading , setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:8080/api/auth/get-data/", {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-  //       const data = await response.json();
-  //       console.log(data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/auth/get-data/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        console.log(data);
   
-  //       if (response.ok) {
-  //         setLoading(true);
-  //         console.log("Data received:", data);
-  //       } else {
-  //         console.error("Failed to fetch data");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []); 
+        if (response.ok) {
+          setLoading(true);
+          console.log("Data received:", data);
+        } else {
+          console.error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []); 
 
   useEffect(() => {
     const map = new mapboxgl.Map({
