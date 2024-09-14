@@ -9,11 +9,11 @@ from glofapi.serializers import GLOFSerializer
 @api_view(['GET'])
 def get_other_data(request:HttpRequest) -> Response:
     """
-    Expected JSON data(raw JSON data/form data)
+    Query parameters: latitude and longitude
     """
     if request.method == 'GET':
-        latitude = request.data.get('latitude')
-        longitude = request.data.get('longitude')
+        latitude = request.GET.get('latitude')
+        longitude = request.GET.get('longitude')
         if latitude is None or longitude is None:
             return Response({
                 'message': f'Latitude and longitude cannot be None.'
