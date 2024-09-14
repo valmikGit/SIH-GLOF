@@ -12,8 +12,8 @@ def get_other_data(request:HttpRequest) -> Response:
     Query parameters: latitude and longitude
     """
     if request.method == 'POST':
-        latitude = request.POST.get('latitude', None)
-        longitude = request.POST.get('longitude', None)
+        latitude = request.data.get('latitude', None)
+        longitude = request.data.get('longitude', None)
         if latitude is None or longitude is None:
             return Response({
                 'message': f'Latitude and longitude cannot be None.'
