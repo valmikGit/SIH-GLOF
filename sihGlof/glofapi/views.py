@@ -14,7 +14,11 @@ def get_other_data(request:HttpRequest) -> Response:
     if request.method == 'GET':
         latitude = request.data.get('latitude')
         longitude = request.data.get('longitude')
-        glofs = GLOFattributes.objects.filter(latitude=latitude, longitude=longitude)
+        if latitude is None or longitude is None:
+            return Response({
+                'message': f'Latitude and longitude cannot be None.'
+            })
+        glofs = GLOFattributes.objects.filter(latitude=str(latitude).strip(), longitude=str(longitude).strip())
         if glofs.exists():
             serializer = GLOFSerializer(glofs, many=True)
             return Response({
@@ -28,6 +32,4 @@ def get_other_data(request:HttpRequest) -> Response:
     })
 
 def home(request:HttpRequest) -> HttpResponse:
-    return HttpResponse({
-        '<h1>HELLO</h1>'
-    })
+    return HttpResponse('<h1>HELLO</h1>')
