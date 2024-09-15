@@ -48,3 +48,7 @@
   left: 0;
   right: 0;
 }
+
+.mapboxgl-popup.mapboxgl-popup-anchor-top {
+  min-width: 200px !important;
+}

@@ -8,9 +8,23 @@ mapboxgl.accessToken =
 
 const Map = () => {
   const mapContainerRef = useRef(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [latitude, setLatitude] = useState(30.316);
   const [longitude, setLongitude] = useState(78.032);
+  const [glofsTemplate, setGlofsTemplate] = useState([
+    {
+      type: "Feature",
+      properties: {
+        description:
+          '<strong>Make it Mount Pleasant</strong><p><a href="http://www.mtpleasantdc.com/makeitmtpleasant" target="_blank" title="Opens in a new window">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>',
+        icon: "theatre",
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [-77.038659, 38.931567],
+      },
+    },
+  ]);
 
   const [glofs, setGlofs] = useState({
     type: "geojson",
@@ -45,18 +59,65 @@ const Map = () => {
         const data = await response.json();
         console.log(data);
 
-        const updatedFeatures = data.map((feature) => {
-          console.log(feature);
-          return feature;
-        });
+        data.data.forEach((feature) => {
+          let object = {
+            type: "Feature",
+            properties: {
+              description: `
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+  <div>
+      <h2>
+      ${
+        feature.latitude < 0
+          ? feature.latitude * -1 + "°S"
+          : feature.latitude + "°N"
+      }, ${
+                feature.longitude < 0
+                  ? feature.longitude * -1 + "°W"
+                  : feature.longitude + "°E"
+              }
+      </h2>
+  </div>
+  <div style="display: flex; justify-content: space-between;">
+    <div style="font-weight: bold;">Mean Elevation:</div>
+    <div>${feature.meanelevation || "N/A"}</div>
+  </div>
+  <div style="display: flex; justify-content: space-between;">
+    <div style="font-weight: bold;">Max Elevation:</div>
+    <div>${feature.maxelevation || "N/A"}</div>
+  </div>
+  <div style="display: flex; justify-content: space-between;">
+    <div style="font-weight: bold;">Min Elevation:</div>
+    <div>${feature.minelevation || "N/A"}</div>
+  </div>
+  <div style="display: flex; justify-content: space-between;">
+    <div style="font-weight: bold;">Total Area:</div>
+    <div>${feature.totalarea || "N/A"}</div>
+  </div>
+  <div style="display: flex; justify-content: space-between;">
+    <div style="font-weight: bold;">Mean Width:</div>
+    <div>${feature.meanwidth || "N/A"}</div>
+  </div>
+  <div style="display: flex; justify-content: space-between;">
+    <div style="font-weight: bold;">Mean Length:</div>
+    <div>${feature.meanlength || "N/A"}</div>
+  </div>
+  <div style="display: flex; justify-content: space-between;">
+    <div style="font-weight: bold;">Mean Depth:</div>
+    <div>${feature.meandepth || "N/A"}</div>
+  </div>
+</div>
+`,
+              icon: "theatre",
+            },
+            geometry: {
+              type: "Point",
+              coordinates: [feature.longitude, feature.latitude],
+            },
+          };
 
-        setGlofs((prevGlofs) => ({
-          ...prevGlofs,
-          data: {
-            ...prevGlofs.data,
-            features: updatedFeatures,
-          },
-        }));
+          glofsTemplate.push(object);
+        });
 
         if (response.ok) {
           setLoading(true);
@@ -78,8 +139,8 @@ const Map = () => {
         container: mapContainerRef.current,
         style: "mapbox://styles/mapbox/streets-v12",
         projection: "globe",
-        zoom: 1,
-        center: [30, 15],
+        zoom: 5,
+        center: [82.0370411322665, 31.680213863049943],
       });
 
       map.addControl(new mapboxgl.NavigationControl());
@@ -87,7 +148,13 @@ const Map = () => {
 
       map.on("style.load", () => {
         map.setFog({});
-        map.addSource("places", glofs);
+        map.addSource("places", {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: glofsTemplate,
+          },
+        });
 
         map.addLayer({
           id: "places",
@@ -221,7 +288,7 @@ const Map = () => {
 
       return () => map.remove(); // Clean up on unmount
     }
-  }, []);
+  }, [loading]);
 
   return loading ? (
     <>
