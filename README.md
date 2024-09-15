@@ -17,3 +17,6 @@ iii) Points to mark specific locations like cities, stations, or sensor placemen
 - Boxplots for Each Column
 To further explore the dataset, boxplots were created for each column in the dataframe. Boxplots are an effective way to visualize the distribution, central tendency (median), and spread (quartiles) of the data. They also highlight potential outliers in each column, allowing for a better understanding of the data’s range and variability. These boxplots were particularly useful in summarizing the characteristics of each feature before diving into more advanced analysis.
 - By following these preprocessing steps, the data was cleaned, structured, and visualized, ensuring it was ready for further analysis and model building.
+
+## Datasets used:
+- GLIMS Dataset: https://www.glims.org/RGI/
