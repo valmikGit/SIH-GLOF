@@ -1,0 +1,19 @@
+# GLOF Early Warning System (Early Steps)
+
+## Preprocessing for the ML model:
+- DataFrame Creation
+The first step involved creating a dataframe from the raw data. This data may have come from various sources like CSV files, Excel files, or shapefiles (geospatial data). The dataframe serves as a structured format where each column represents a feature or attribute, and each row corresponds to an entry in the dataset. At this stage, we ensured that the data was loaded correctly into a pandas dataframe, which provides flexibility for subsequent filtering and analysis.
+- Shapefiles Filtering and Preprocessing
+Shapefiles, which contain geospatial data in vector format (polygons, lines, and points), were loaded and filtered to remove irrelevant data or focus on specific areas of interest. This filtering step could involve selecting specific geographic regions, features, or attribute values from the shapefiles. Additionally, preprocessing included cleaning the shapefile data by fixing any projection issues (e.g., reprojecting to a consistent coordinate system), handling missing geometries, and ensuring the attribute columns were in the correct format for analysis.
+- Dropping Rows and Columns
+To further clean the data, unnecessary rows and columns were removed. Rows were dropped based on specific criteria such as missing values, irrelevant data points, or outliers that might distort the analysis. Similarly, columns that did not contribute meaningfully to the analysis were dropped. This step helped in simplifying the dataset, reducing complexity, and focusing on the most relevant information for the analysis.
+- Outlier Check
+Detecting and handling outliers was a crucial step to ensure the integrity of the analysis. Outliers in numerical columns were identified by statistical methods such as Z-score, IQR (Interquartile Range), or visual methods like boxplots. Once identified, these outliers were either removed or addressed (depending on the context), as they could potentially skew the results. The goal was to ensure the data was robust and not influenced by extreme or anomalous values.
+- Plotting Polygons, Lines, and Points for Shapefiles
+After filtering and preprocessing the shapefiles, visualizations were generated to understand the spatial distribution of the data. This involved plotting:
+i) Polygons to represent areas such as administrative boundaries, regions, or land use zones.
+ii) Lines to display linear features like roads, rivers, or pathways.
+iii) Points to mark specific locations like cities, stations, or sensor placements. These visualizations provided a spatial perspective of the data, helping to identify geographic trends and relationships.
+- Boxplots for Each Column
+To further explore the dataset, boxplots were created for each column in the dataframe. Boxplots are an effective way to visualize the distribution, central tendency (median), and spread (quartiles) of the data. They also highlight potential outliers in each column, allowing for a better understanding of the data’s range and variability. These boxplots were particularly useful in summarizing the characteristics of each feature before diving into more advanced analysis.
+- By following these preprocessing steps, the data was cleaned, structured, and visualized, ensuring it was ready for further analysis and model building.
