@@ -21,3 +21,12 @@ To further explore the dataset, boxplots were created for each column in the dat
 ## Datasets used:
 - The preprocessing steps mentioned above were applied on the 3 datasets listed below.
 - GLIMS Dataset: https://www.glims.org/RGI/
+
+## Frontend -
+- Map
+
+## Backend -
+- The .csv file containing all the parameters related to glaciers (one of the datasets which we found) was used to populate the database.
+- The most useful columns were retained while the others were dropped.
+- Then a Django task was made to load the filtered .csv file into the database.
+- The backend has 1 API which sends all the rows of the database to the frontend.
