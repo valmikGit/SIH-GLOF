@@ -19,4 +19,5 @@ To further explore the dataset, boxplots were created for each column in the dat
 - By following these preprocessing steps, the data was cleaned, structured, and visualized, ensuring it was ready for further analysis and model building.
 
 ## Datasets used:
+- The preprocessing steps mentioned above were applied on the 3 datasets listed below.
 - GLIMS Dataset: https://www.glims.org/RGI/
