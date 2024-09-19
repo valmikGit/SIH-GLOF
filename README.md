@@ -23,7 +23,7 @@ To further explore the dataset, boxplots were created for each column in the dat
 
 ## Data visualizations to gain insights into the datasets and as a part of preprocessing:
 - ![Visualization 1](https://github.com/valmikGit/SIH-GLOF/blob/main/sihGlof/mlModel/Polygon%20Plots/combined.png?raw=true)
-- ![Visualization 2](https://github.com/valmikGit/SIH-GLOF/blob/main/sihGlof/mlModel/Polygon%20Plots/geospatial_plot.png?raw=true)
+- ![Visualization 2](https://github.com/valmikGit/SIH-GLOF/blob/main/sihGlof/mlModel/Polygon%20Plots/geospatial_plot_1.png?raw=true)
 - ![Visualization 3](https://github.com/valmikGit/SIH-GLOF/blob/main/sihGlof/mlModel/Polygon%20Plots/lines.png?raw=true)
 - ![Visualization 4](https://github.com/valmikGit/SIH-GLOF/blob/main/sihGlof/mlModel/Polygon%20Plots/points.png?raw=true)
 - ![Visualization 5](https://github.com/valmikGit/SIH-GLOF/blob/main/sihGlof/mlModel/Polygon%20Plots/polygons.png?raw=true)
