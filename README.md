@@ -1,5 +1,4 @@
-# GLOF Early Warning System (Early Steps)
-
+# GLOF Early Warning System
 ## Preprocessing for the ML model:
 - DataFrame Creation
 The first step involved creating a dataframe from the raw data. This data came from shapefiles (geospatial data). The dataframe serves as a structured format where each column represents a feature or attribute, and each row corresponds to an entry in the dataset. At this stage, we ensured that the data was loaded correctly into a pandas dataframe, which provides flexibility for subsequent filtering and analysis.
