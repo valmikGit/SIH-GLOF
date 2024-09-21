@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'glofapi',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 ]
 
 REST_fRAMEWORK = {
