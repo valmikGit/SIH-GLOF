@@ -53,7 +53,7 @@ const Map = () => {
         const response = await fetch("http://127.0.0.1:8000/get-data/", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "Avalication/json",
           },
         });
         const data = await response.json();
@@ -66,7 +66,7 @@ const Map = () => {
               description: `
 <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
   <div>
-      <h2>
+      <h2 style = "margin-block-start: 10px; margin-block-end: 10px; font-size: 2.5em">
       ${
         feature.latitude < 0
           ? feature.latitude * -1 + "°S"
@@ -78,33 +78,65 @@ const Map = () => {
               }
       </h2>
   </div>
-  <div style="display: flex; justify-content: space-between;">
-    <div style="font-weight: bold;">Mean Elevation:</div>
-    <div>${feature.meanelevation || "N/A"}</div>
-  </div>
-  <div style="display: flex; justify-content: space-between;">
-    <div style="font-weight: bold;">Max Elevation:</div>
-    <div>${feature.maxelevation || "N/A"}</div>
-  </div>
-  <div style="display: flex; justify-content: space-between;">
-    <div style="font-weight: bold;">Min Elevation:</div>
-    <div>${feature.minelevation || "N/A"}</div>
-  </div>
-  <div style="display: flex; justify-content: space-between;">
-    <div style="font-weight: bold;">Total Area:</div>
-    <div>${feature.totalarea || "N/A"}</div>
-  </div>
-  <div style="display: flex; justify-content: space-between;">
-    <div style="font-weight: bold;">Mean Width:</div>
-    <div>${feature.meanwidth || "N/A"}</div>
-  </div>
-  <div style="display: flex; justify-content: space-between;">
-    <div style="font-weight: bold;">Mean Length:</div>
-    <div>${feature.meanlength || "N/A"}</div>
-  </div>
-  <div style="display: flex; justify-content: space-between;">
-    <div style="font-weight: bold;">Mean Depth:</div>
-    <div>${feature.meandepth || "N/A"}</div>
+  <div style="display: flex; flex-direction: row; gap: 10px; margin-top: 5px; justify-content: center;">
+    <div style="width : 45%; display: flex; flex-direction: column; gap: 2px;">
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Mean Elevation:</div>
+        <div>${feature.meanelevation || "Not Ava."}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Max Elevation:</div>
+        <div>${feature.maxelevation || "Not Ava."}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Min Elevation:</div>
+        <div>${feature.minelevation || "Not Ava."}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Total Area:</div>
+        <div>${feature.totalarea || "Not Ava."}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Mean Width:</div>
+        <div>${feature.meanwidth || "Not Ava."}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Mean Length:</div>
+        <div>${feature.meanlength || "Not Ava."}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Mean Depth:</div>
+        <div>${feature.meandepth || "Not Ava."}</div>
+      </div>
+    </div>
+    <div class="verticalLine">
+    </div>
+    <div style="width : 45%; display: flex; flex-direction: column; gap: 2px;">
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Period Activity Start:</div>
+        <div>${feature.period_activity_start || "Not Ava."}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Period Activity End:</div>
+        <div>${feature.period_activity_end || "Not Ava."}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Number of Basins:</div>
+        <div>${feature.num_basins || "Not Ava."}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Area in State:</div>
+        <div>${feature.area_in_state || "Not Ava."}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Area Expansion:</div>
+        <div>${feature.area_exp || "Not Ava."}</div>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <div style="font-weight: bold;">Source Nourish:</div>
+        <div>${feature.source_nourish || "Not Ava."}</div>
+      </div>
+    </div>
   </div>
 </div>
 `,

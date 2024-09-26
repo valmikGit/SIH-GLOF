@@ -50,5 +50,16 @@
 }
 
 .mapboxgl-popup.mapboxgl-popup-anchor-top {
-  min-width: 200px !important;
+  min-width: 400px !important;
+}
+
+.mapboxgl-popup{
+  color: black !important;
+  min-width: 400px !important;
+}
+
+.verticalLine {
+  border-left: 1px dashed #aaaaaa;
+  border-right: 1px dashed #aaaaaa;
+  width: 2px;
 }
