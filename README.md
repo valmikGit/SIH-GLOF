@@ -20,6 +20,9 @@ To further explore the dataset, boxplots were created for each column in the dat
 ## Datasets used:
 - The preprocessing steps mentioned above were applied on the 3 datasets listed below.
 - GLIMS Dataset: https://www.glims.org/RGI/
+- ICIMOD Dataset: https://drive.google.com/drive/folders/1cE-KfmBFyrq7VVGmcwhYaU23OBydUGhU?usp=sharing
+- GLOF database spreadsheet which we found: https://github.com/valmikGit/SIH-GLOF/blob/main/sihGlof/resources/glofdatabase_V3-1.ods
+- NOTE: For now we have used attribute.csv for rendering the datapoints on the frontend due to lesser rows in the dataset. We will later on update the dataset to a more extensive Indian dataset.
 
 ## Data visualizations to gain insights into the datasets and as a part of preprocessing:
 - ![Visualization 1](https://github.com/valmikGit/SIH-GLOF/blob/main/sihGlof/mlModel/Polygon%20Plots/combined.png?raw=true)
