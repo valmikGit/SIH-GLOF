@@ -32,7 +32,7 @@ To further explore the dataset, boxplots were created for each column in the dat
 - ![Visualization 5](https://github.com/valmikGit/SIH-GLOF/blob/main/sihGlof/mlModel/Polygon%20Plots/polygons.png?raw=true)
 
 ## Frontend -
-- <img width="957" alt="{BD5FD553-AA4E-47AF-B347-CF2CFA64DB91}" src="https://github.com/user-attachments/assets/0647fe87-9438-45ed-b9b2-09b0e92901f9">
+- ![image](https://github.com/user-attachments/assets/18b8123f-8d25-4940-abe5-61693f41c0a2)
 - Have created a global map in which specifically for Hind-Kush Regions we have created a layout where the user/government admin clicks on a specific region and this provides with a detailed analysis of the that part showing :
 - Mean Elevation , Latitute, Longitude, Mean Width , Mean Length, Total Area, Mean Depth , Max Elevation, Min Elevation.This provides a detailed analysis of that glacial lake which we feed into our ML model helping us predict the GLOF early saving us human lives.
 ## Backend -
