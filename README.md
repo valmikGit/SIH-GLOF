@@ -20,6 +20,7 @@ To further explore the dataset, boxplots were created for each column in the dat
 ## Datasets used:
 - The preprocessing steps mentioned above were applied on the 3 datasets listed below.
 - GLIMS Dataset: https://www.glims.org/RGI/
+- ICIMOD Dataset: https://drive.google.com/drive/folders/1cE-KfmBFyrq7VVGmcwhYaU23OBydUGhU?usp=sharing
 
 ## Data visualizations to gain insights into the datasets and as a part of preprocessing:
 - ![Visualization 1](https://github.com/valmikGit/SIH-GLOF/blob/main/sihGlof/mlModel/Polygon%20Plots/combined.png?raw=true)
