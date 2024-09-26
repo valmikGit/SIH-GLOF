@@ -34,7 +34,7 @@ To further explore the dataset, boxplots were created for each column in the dat
 ## Frontend -
 - ![image](https://github.com/user-attachments/assets/18b8123f-8d25-4940-abe5-61693f41c0a2)
 - Have created a global map in which specifically for Hind-Kush Regions we have created a layout where the user/government admin clicks on a specific region and this provides with a detailed analysis of the that part showing :
-- Mean Elevation , Latitute, Longitude, Mean Width , Mean Length, Total Area, Mean Depth , Max Elevation, Min Elevation.This provides a detailed analysis of that glacial lake which we feed into our ML model helping us predict the GLOF early saving us human lives.
+- Mean Elevation , Latitute, Longitude, Mean Width , Mean Length, Total Area, Mean Depth , Max Elevation, Min Elevation, Period activity start, Period activity end, Number of basins, Area in state, Area expansion, Source nourish are the attributes we have rendered. This provides a detailed analysis of that glacial lake which we feed into our ML model helping us predict the GLOF early saving us human lives.
 ## Backend -
 - The .csv file containing all the parameters related to glaciers (one of the datasets which we found) was used to populate the database.
 - The most useful columns were retained while the others were dropped.
